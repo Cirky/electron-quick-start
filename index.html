@@ -1,19 +1,381 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <link href="./styles.css" rel="stylesheet">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+<html lang="sl">
+<head>
+  <meta charset="UTF-8">
+  <title>Izposojevalnica Avtek</title>
+<!--  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="./styles.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-    <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
-  </body>
+</head>
+<body>
+  <div class="container" id="narocilo">
+    <h1>Izposojevalnica Avtek</h1>
+    <form action="" id="form">
+      <div class="row align-items-start">
+        <div class="col">
+          <h3>Podatki naročila</h3>
+          <div class="row">
+            <div class="col">
+              <label for="dt_izposoja">Datum in čas izposoje:</label>
+              <br>
+              <input type="datetime-local" id="dt_izposoja" name="dt_izposoja" class="form-control">
+              <br>
+              <label for="dt_vrnitev">Datum in čas vrnitve:</label>
+              <br>
+              <input type="datetime-local" id="dt_vrnitev" name="dt_vrnitev" class="form-control">
+
+              <br>
+              <label for="kraj_prevzema">Kraj prevzema:</label>
+              <br>
+              <select class="form-select" id="kraj_prevzema">
+                <option value="Ljubljana">Ljubljana</option>
+                <option value="Maribor">Maribor</option>
+                <option value="Celje">Celje</option>
+                <option value="Kranj">Kranj</option>
+                <option value="Velenje">Velenje</option>
+                <option value="Koper">Koper</option>
+                <option value="Novo Mesto">Novo Mesto</option>
+                <option value="Murska Sobota">Murska Sobota</option>
+                <option value="Jesenice">Jesenice</option>
+                <option value="Portorož">Portorož</option>
+                <option value="letališče Brnik">letališče Brnik</option>
+                <option value="letališče Maribor">letališče Maribor</option>
+              </select>
+              <br>
+              <label for="kraj_oddaje">Kraj oddaje:</label>
+              <br>
+              <select class="form-select" id="kraj_oddaje">
+                <option value="Ljubljana">Ljubljana</option>
+                <option value="Maribor">Maribor</option>
+                <option value="Celje">Celje</option>
+                <option value="Kranj">Kranj</option>
+                <option value="Velenje">Velenje</option>
+                <option value="Koper">Koper</option>
+                <option value="Novo Mesto">Novo Mesto</option>
+                <option value="Murska Sobota">Murska Sobota</option>
+                <option value="Jesenice">Jesenice</option>
+                <option value="Portorož">Portorož</option>
+                <option value="letališče Brnik">letališče Brnik</option>
+                <option value="letališče Maribor">letališče Maribor</option>
+              </select>
+            </div>
+
+            <div class="col">
+              <label for="velikost_avta">Velikost avta:</label>
+              <br>
+              <select class="form-select" id="velikost_avta">
+                <option value="Majhen">Majhen</option>
+                <option value="Srednji">Srednji</option>
+                <option value="Velik">Velik</option>
+              </select>
+              <br>
+              <label for="majhni" class="majhni">Izbor majhnega avta:</label>
+              <br class="majhni">
+              <select class="majhni form-select" id="majhni">
+                <option value="Acura ILX">Acura ILX</option>
+                <option value="Alfa Romeo Giulia">Alfa Romeo Giulia</option>
+                <option value="Audi A3">Audi A3</option>
+                <option value="Chevrolet Spark">Chevrolet Spark</option>
+                <option value="Honda Civic">Honda Civic</option>
+              </select>
+              <label for="srednji" class="srednji" style="display: none">Izbor srednjega avta:</label>
+              <br class="srednji" style="display: none">
+              <select class="srednji form-select" id="srednji" style="display: none">
+                <option value="MB C180">MB C180</option>
+                <option value="Toyota Avensis">Toyota Avensis</option>
+                <option value="Audi A5">Audi A5</option>
+                <option value="Honda Accord">Honda Accord</option>
+                <option value="Skoda Octavia">Skoda Octavia</option>
+              </select>
+              <label for="veliki" class="veliki" style="display: none">Izbor velikega avta:</label>
+              <br class="veliki" style="display: none">
+              <select class="veliki form-select" id="veliki" style="display: none">
+                <option value="Audi A7">Audi A7</option>
+                <option value="BMW 7-Series">BMW 7-Series</option>
+                <option value="Genesis G90">Genesis G90</option>
+                <option value="Toyota Avalon">Toyota Avalon</option>
+                <option value="Porsche Panamera">Porsche Panamera</option>
+              </select>
+
+              <br>
+              <label for="vrsta_menjalnika">Vrsta menjalnika:</label>
+              <br>
+              <select class="form-select" id="vrsta_menjalnika">
+                <option value="Samodejni">Samodejni</option>
+                <option value="Ročni">Ročni</option>
+              </select>
+              <br>
+              <label for="vrsta_motorja">Vrsta motorja:</label>
+              <br>
+              <select class="form-select" id="vrsta_motorja">
+                <option value="Bencinski">Bencinski</option>
+                <option value="Dizelski">Dizelski</option>
+              </select>
+
+            </div>
+          </div>
+          <div class="row">
+            <h3>Podatki plačila</h3>
+            <div class="row">
+              <div class="col">
+                <label for="nacin_placila">Način plačila:</label>
+                <br>
+                <select class="form-select" id="nacin_placila">
+                  <option value="Gotovina">Gotovina</option>
+                  <option value="Kartica">Kartica</option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="zavarovanje">Dodatno zavarovanje:</label>
+                <br>
+                <select class="form-select" id="zavarovanje">
+                  <option value="Ne">Ne</option>
+                  <option value="Da">Da</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col kartica_ccv" style="display: none">
+                <br>
+                <label for="kartica">Številka kreditne kartice:</label><br>
+                <input type="text" id="kartica" class="form-control" name="kartica" onchange="preveriPolje(this.id, this.value)">
+              </div>
+              <div class="col kartica_ccv" style="display: none">
+                <br>
+                <label for="ccv">CCV koda:</label><br>
+                <input type="text" id="ccv" class="form-control" name="ccv" onchange="preveriPolje(this.id, this.value)">
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div class="col">
+          <h3>Podatki stranke</h3>
+          <div class="row">
+            <div class="col">
+              <label for="ime">Ime:</label><br>
+              <input type="text" id="ime" name="ime" class="form-control" onchange="preveriPolje(this.id, this.value)"><br>
+
+              <label for="priimek">Priimek:</label><br>
+              <input type="text" id="priimek" name="priimek" class="form-control" onchange="preveriPolje(this.id, this.value)"><br>
+
+              <label for="starost">Starost:</label><br>
+              <input type="number" id="starost" min="18" name="starost" class="form-control" onchange="preveriPolje(this.id, this.value)"><br>
+
+              <label for="vozniski">Čas trajanja izpita v letih:</label><br>
+              <input type="number" id="vozniski" min="0" name="vozniski" class="form-control" onchange="preveriPolje(this.id, this.value)"><br>
+
+              <label for="email">Email:</label><br>
+              <input type="email" id="email" name="email" class="form-control" onchange="preveriPolje(this.id, this.value)"><br>
+            </div>
+            <div class="col">
+              <label for="ulica">Ulica:</label><br>
+              <input type="text" id="ulica" name="ulica" class="form-control" onchange="preveriPolje(this.id, this.value)"><br>
+
+              <label for="hisna_st">Hišna številka:</label><br>
+              <input type="number" id="hisna_st" name="hisna_st" class="form-control" onchange="preveriPolje(this.id, this.value)"><br>
+
+              <label for="mesto">Mesto:</label><br>
+              <input type="text" id="mesto" name="mesto" class="form-control" onchange="preveriPolje(this.id, this.value)"><br>
+
+              <label for="posta">Poštna številka:</label><br>
+              <input type="text" id="posta" name="posta" class="form-control" onchange="preveriPolje(this.id, this.value)"><br>
+
+              <label for="telefon">Telefon:</label><br>
+              <input type="tel" id="telefon" name="telefon" class="form-control" onchange="preveriPolje(this.id, this.value)"><br>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <br>
+      <br>
+      <div class="row">
+        <div class="row">
+          <p id="znesek">Trenutni znesek je: 0€</p>
+        </div>
+        <div class="col d-flex justify-content-start">
+          <input type="reset" value="Ponastavi" style="margin-right: 2%">
+          <input type="button" value="Shrani" onclick="preveriPodatke(form)">
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="container" id="prikaz" style="display: none">
+    <h2>Pregled naročila</h2>
+    <div class="row align-items-start">
+      <p><b>Podatki o stranki:</b></p>
+      <p id="ime_priimek"></p>
+      <p id="starost_n"></p>
+      <p id="izpit_n"></p>
+      <p id="email_n"></p>
+      <p id="tel_n"></p>
+      <p id="naslov_n"></p>
+
+      <p><b>Podatki o naročilu:</b></p>
+      <p id="izposoja_n"></p>
+      <p id="vrnitev_n"></p>
+      <p id="prevzem_n"></p>
+      <p id="oddaja_n"></p>
+      <p id="velikost_avta_n"></p>
+      <p id="izbor_avta_n"></p>
+      <p id="menjalnik_n"></p>
+      <p id="motor_n"></p>
+      <p id="zavarovanje_n"></p>
+
+      <p><b>Podatki o plačilu:</b></p>
+      <p id="nacin_placila_n"></p>
+      <p id="kartica_n"></p>
+      <p id="ccv_n"></p>
+      <p id="strosek_n"></p>
+
+    </div>
+    <div class="col d-flex justify-content-center">
+      <input type="button" value="Prekliči" style="margin-right: 2%" onclick="preklici()">
+      <input type="button" value="Pošlji" onclick="poslji()">
+    </div>
+  </div>
+
+  <script src="./renderer.js"></script>
+  <script src="./validation.js"></script>
+</body>
+
+<script>
+  function preklici() {
+    $('#narocilo').show();
+    $('#prikaz').hide();
+  }
+  function poslji() {
+    document.getElementById("form").submit();
+    $('#narocilo').hide();
+    $('#prikaz').show();
+  }
+
+  var today = new Date();
+  var month = today.getMonth()+1 < 10 ? "0" + today.getMonth()+1 : today.getMonth()+1;
+  var day = today.getDate() < 10 ? "0" + today.getDate() : today.getDate();
+  var hours = today.getHours() < 10 ? "0" + today.getHours() : today.getHours();
+  var minutes = today.getMinutes() < 10 ? "0" + today.getMinutes() : today.getMinutes();
+
+  var time = hours + ":" + minutes; // + ":" + today.getSeconds();
+  var date = today.getFullYear() +'-'+ month + '-' + day;
+
+  document.getElementById("dt_izposoja").min = date + "T" + time;
+  var vrnitev = document.getElementById("dt_vrnitev");
+  var izposoja = document.getElementById("dt_izposoja");
+  var zavarovanje = document.getElementById("zavarovanje");
+  vrnitev.onchange = function () {
+    preveriPolje(this.id, this.value);
+    if(vrnitev.value.length === 0){
+      document.getElementById("znesek").innerHTML = "Trenutni znesek je: 0€";
+      return;
+    }
+    if (!(!vrnitev.value || !izposoja.value)){
+      if (vrnitev.value >= izposoja.value){
+        var date1 = new Date(izposoja.value.replace(/-/g,'/').replace(/T/g, ' '));
+        var date2 = new Date(vrnitev.value.replace(/-/g,'/').replace(/T/g, ' '));
+        var cas_milisekunde = Math.abs(date2 - date1);
+        var stevilo_dni = Math.ceil(cas_milisekunde/1000/3600/24);
+        if(zavarovanje.value === "Da")
+          document.getElementById("znesek").innerHTML = "Trenutni znesek je: " + (stevilo_dni * 100 + stevilo_dni*2) + "€";
+        else if(zavarovanje.value === "Ne")
+          document.getElementById("znesek").innerHTML = "Trenutni znesek je: " + stevilo_dni * 100 + "€";
+      }
+      else {
+        document.getElementById("znesek").innerHTML = "Trenutni znesek je: 0€";
+      }
+    }
+  };
+  izposoja.onchange = function () {
+    vrnitev.min = izposoja.value;
+    preveriPolje(this.id, this.value);
+    if(izposoja.value.length === 0){
+      document.getElementById("znesek").innerHTML = "Trenutni znesek je: 0€";
+      return;
+    }
+    if (!(!vrnitev.value || !izposoja.value)){
+      if (vrnitev.value >= izposoja.value){
+        var date1 = new Date(izposoja.value.replace(/-/g,'/').replace(/T/g, ' '));
+        var date2 = new Date(vrnitev.value.replace(/-/g,'/').replace(/T/g, ' '));
+        var cas_milisekunde = Math.abs(date2 - date1);
+        var stevilo_dni = Math.ceil(cas_milisekunde/1000/3600/24);
+        if(zavarovanje.value === "Da")
+          document.getElementById("znesek").innerHTML = "Trenutni znesek je: " + (stevilo_dni * 100 + stevilo_dni*2) + "€";
+        else if(zavarovanje.value === "Ne")
+          document.getElementById("znesek").innerHTML = "Trenutni znesek je: " + stevilo_dni * 100 + "€";
+      }
+      else {
+        document.getElementById("znesek").innerHTML = "Trenutni znesek je: 0€";
+      }
+    }
+  };
+  zavarovanje.onchange = function () {
+    if (!(!vrnitev.value || !izposoja.value)){
+      if (vrnitev.value >= izposoja.value){
+        var date1 = new Date(izposoja.value.replace(/-/g,'/').replace(/T/g, ' '));
+        var date2 = new Date(vrnitev.value.replace(/-/g,'/').replace(/T/g, ' '));
+        var cas_milisekunde = Math.abs(date2 - date1);
+        var stevilo_dni = Math.ceil(cas_milisekunde/1000/3600/24);
+        if(zavarovanje.value === "Da")
+          document.getElementById("znesek").innerHTML = "Trenutni znesek je: " + (stevilo_dni * 100 + stevilo_dni*2) + "€";
+        else if(zavarovanje.value === "Ne")
+          document.getElementById("znesek").innerHTML = "Trenutni znesek je: " + stevilo_dni * 100 + "€";
+      }
+      else {
+        document.getElementById("znesek").innerHTML = "Trenutni znesek je: 0€";
+      }
+    }
+  };
+
+  $('#velikost_avta').change(function () {
+    var velikost = $('#velikost_avta option:selected').text();
+    if (velikost === "Majhen"){
+      $('.srednji').hide();
+      $('.veliki').hide();
+      $('.majhni').show();
+    } else if (velikost === "Srednji"){
+      $('.majhni').hide();
+      $('.veliki').hide();
+      $('.srednji').show();
+    } else if (velikost === "Velik"){
+      $('.srednji').hide();
+      $('.majhni').hide();
+      $('.veliki').show();
+    }
+  });
+  $('#nacin_placila').change(function () {
+    var nacina_placila = $('#nacin_placila option:selected').text();
+    if (nacina_placila === "Gotovina"){
+      $('.kartica_ccv').hide();
+      document.getElementById('kartica').required = false;
+      document.getElementById('ccv').required = false;
+    } else if (nacina_placila === "Kartica"){
+      $('.kartica_ccv').show();
+      document.getElementById('kartica').required = true;
+      document.getElementById('ccv').required = true;
+    }
+  });
+  $('input[type="reset"]').click(function() {
+    $('.srednji').hide();
+    $('.veliki').hide();
+    $('.majhni').show();
+
+    $('.kartica_ccv').hide();
+    $('.is-valid').removeClass("is-valid");
+    $('.is-invalid').removeClass("is-invalid");
+    document.getElementById('kartica').required = false;
+    document.getElementById('ccv').required = false;
+
+    document.getElementById("znesek").innerHTML = "Trenutni znesek je: 0€";
+  });
+</script>
 </html>
