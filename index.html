@@ -13,7 +13,6 @@
 </head>
 <body>
   <div class="container" id="narocilo">
-    <h1>Izposojevalnica Avtek</h1>
     <form action="" id="form">
       <div class="row align-items-start">
         <div class="col">
@@ -118,41 +117,6 @@
 
             </div>
           </div>
-          <div class="row">
-            <h3>Podatki plačila</h3>
-            <div class="row">
-              <div class="col">
-                <label for="nacin_placila">Način plačila:</label>
-                <br>
-                <select class="form-select" id="nacin_placila">
-                  <option value="Gotovina">Gotovina</option>
-                  <option value="Kartica">Kartica</option>
-                </select>
-              </div>
-              <div class="col">
-                <label for="zavarovanje">Dodatno zavarovanje:</label>
-                <br>
-                <select class="form-select" id="zavarovanje">
-                  <option value="Ne">Ne</option>
-                  <option value="Da">Da</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col kartica_ccv" style="display: none">
-                <br>
-                <label for="kartica">Številka kreditne kartice:</label><br>
-                <input type="text" id="kartica" class="form-control" name="kartica" onchange="preveriPolje(this.id, this.value)">
-              </div>
-              <div class="col kartica_ccv" style="display: none">
-                <br>
-                <label for="ccv">CCV koda:</label><br>
-                <input type="text" id="ccv" class="form-control" name="ccv" onchange="preveriPolje(this.id, this.value)">
-              </div>
-            </div>
-
-          </div>
 
         </div>
         <div class="col">
@@ -195,23 +159,61 @@
         </div>
       </div>
 
-      <br>
-      <br>
-      <div class="row">
-        <div class="row">
-          <p id="znesek">Trenutni znesek je: 0€</p>
+      <div class="row align-items-start">
+        <h3>Podatki plačila</h3>
+        <div class="col">
+
+          <div class="row">
+            <div class="row">
+              <div class="col">
+                <label for="zavarovanje">Dodatno zavarovanje:</label>
+                <br>
+                <select class="form-select" id="zavarovanje">
+                  <option value="Ne">Ne</option>
+                  <option value="Da">Da</option>
+                </select>
+              </div>
+              <div class="col">
+                <label for="nacin_placila">Način plačila:</label>
+                <br>
+                <select class="form-select" id="nacin_placila">
+                  <option value="Gotovina">Gotovina</option>
+                  <option value="Kartica">Kartica</option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col d-flex justify-content-start">
-          <input type="reset" value="Ponastavi" style="margin-right: 2%">
-          <input type="button" value="Shrani" onclick="preveriPodatke(form)">
+        <div class="col">
+          <div class="row">
+            <div class="col kartica_ccv" style="display: none">
+              <label for="kartica">Številka kreditne kartice:</label><br>
+              <input type="text" id="kartica" class="form-control" name="kartica" onchange="preveriPolje(this.id, this.value)">
+            </div>
+            <div class="col kartica_ccv" style="display: none">
+              <label for="ccv">CCV koda:</label><br>
+              <input type="text" id="ccv" class="form-control" name="ccv" onchange="preveriPolje(this.id, this.value)">
+            </div>
+          </div>
         </div>
       </div>
 
+      <div class="row">
+        <div class="col">
+          <div class="col d-flex justify-content-center mt-4">
+            <p id="znesek">Trenutni znesek je: 0€</p>
+          </div>
+          <div class="col d-flex justify-content-center">
+            <input type="reset" class="btn btn-secondary" value="Ponastavi" style="margin-right: 1%">
+            <input type="button" class="btn btn-secondary" value="Shrani" onclick="preveriPodatke(form)">
+          </div>
+        </div>
+      </div>
     </form>
   </div>
 
   <div class="container" id="prikaz" style="display: none">
-    <h2>Pregled naročila</h2>
+    <h2>Povzetek naročila</h2>
     <div class="row align-items-start">
       <p><b>Podatki o stranki:</b></p>
       <p id="ime_priimek"></p>
@@ -240,8 +242,8 @@
 
     </div>
     <div class="col d-flex justify-content-center">
-      <input type="button" value="Prekliči" style="margin-right: 2%" onclick="preklici()">
-      <input type="button" value="Pošlji" onclick="poslji()">
+      <input type="button" class="btn btn-secondary" value="Prekliči" style="margin-right: 1%" onclick="preklici()">
+      <input type="button" class="btn btn-secondary" value="Pošlji" onclick="poslji()">
     </div>
   </div>
 

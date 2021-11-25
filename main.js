@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Menu} = require('electron')
 const path = require('path')
 
 function createWindow () {
@@ -41,3 +41,98 @@ app.on('window-all-closed', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+
+const isMac = process.platform === 'darwin'
+
+const template = [
+  // { role: 'appMenu' }
+  ...(isMac ? [{
+    label: app.name,
+    submenu: [
+      { role: 'about' },
+      { type: 'separator' },
+      { role: 'services' },
+      { type: 'separator' },
+      { role: 'hide' },
+      { role: 'hideOthers' },
+      { role: 'unhide' },
+      { type: 'separator' },
+      { role: 'quit' }
+    ]
+  }] : []),
+  // { role: 'fileMenu' }
+  {
+    label: 'Datoteka',
+    submenu: [
+      isMac ? { role: 'close' } : { role: 'quit', label: "Izhod" }
+    ]
+  },
+  // { role: 'editMenu' }
+  {
+    label: 'Uredi',
+    submenu: [
+      { role: 'undo', label: "Razveljavi" },
+      { role: 'redo', label: "Uveljavi" },
+      { type: 'separator' },
+      { role: 'cut', label: "Izreži" },
+      { role: 'copy', label: "Kopiraj" },
+      { role: 'paste', label: "Prilepi" },
+      ...(isMac ? [
+        { role: 'pasteAndMatchStyle' },
+        { role: 'delete' },
+        { role: 'selectAll' },
+        { type: 'separator' },
+        {
+          label: 'Speech',
+          submenu: [
+            { role: 'startSpeaking' },
+            { role: 'stopSpeaking' }
+          ]
+        }
+      ] : [
+
+      ])
+    ]
+  },
+  // { role: 'viewMenu' }
+  {
+    label: 'Pogled',
+    submenu: [
+      { role: 'zoomIn', label: "Povečaj" },
+      { role: 'zoomOut', label: "Pomanjšaj" },
+      { role: 'resetZoom', label: "Ponastavi povečavo" },
+      { type: 'separator' },
+      { role: 'togglefullscreen', label: "Celoten zaslon" }
+    ]
+  },
+  // { role: 'windowMenu' }
+  {
+    label: 'Okno',
+    submenu: [
+      { role: 'minimize', label: "Minimiraj" },
+      ...(isMac ? [
+        { type: 'separator' },
+        { role: 'front' },
+        { type: 'separator' },
+        { role: 'window' }
+      ] : [
+        { role: 'close', label: "Zapri" }
+      ])
+    ]
+  },
+  {
+    role: 'Pomoč',
+    submenu: [
+      {
+        label: 'Learn More',
+        click: async () => {
+          const { shell } = require('electron')
+          await shell.openExternal('https://electronjs.org')
+        }
+      }
+    ]
+  }
+]
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
