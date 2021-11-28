@@ -5,8 +5,8 @@ const path = require('path')
 function createWindow () {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 800,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
@@ -151,7 +151,7 @@ const template = [
             type: 'info',
             buttons: ['OK'],
             title: 'Navodila za izpolnjevanje polj',
-            message: 'Izposoja mora biti vsaj minuto po trenutnem času.\nVrnitev mora biti po času izposoje.\nStarost mora biti vsaj 18.\nČas izpita ne sme biti negativen.\nŠtevilko kreditne kartice zapišite kot xxxx-xxxx-xxxx-xxxx vključno z znakom -.',
+            message: 'Izposoja mora biti vsaj minuto po trenutnem času.\nVrnitev mora biti enaka ali poznejša od časa izposoje.\nStarost mora biti vsaj 18.\nČas izpita ne sme biti negativen.\nŠtevilko kreditne kartice zapišite kot xxxx-xxxx-xxxx-xxxx vključno z znakom -.',
           };
           dialog.showMessageBox(null, options, (response) => {
             console.log(response);
@@ -165,27 +165,3 @@ const template = [
 
 const menu = Menu.buildFromTemplate(template)
 Menu.setApplicationMenu(menu)
-
-var newWindow = null
-
-function openAboutWindow() {
-  if (newWindow) {
-    newWindow.focus()
-    return
-  }
-
-  newWindow = new BrowserWindow({
-    height: 185,
-    resizable: false,
-    width: 270,
-    title: '',
-    minimizable: false,
-    fullscreenable: false
-  })
-
-  newWindow.loadURL('file://' + __dirname + '/help.html')
-
-  newWindow.on('closed', function() {
-    newWindow = null
-  })
-}

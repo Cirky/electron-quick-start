@@ -1,7 +1,7 @@
 function preveriPodatke(form){
     var napaka = false;
     var izpis = "Napačno izpolnjena polja: ";
-    re = /^[a-zA-ZšŠđĐžŽćĆčČ]{2,}$/;
+    re = /^[a-zA-ZšŠđĐžŽćĆčČ]{2,}[\sa-zA-ZšŠđĐžŽćĆčČ]*$/; //[A-ZŠČĆŽĐ][a-zščćžđ]*
     if(!re.test(form.ime.value)) {
         if(!napaka) {
             izpis = izpis.concat("ime");
@@ -251,7 +251,7 @@ function preveriPodatke(form){
 function preveriPolje(form_name, form_value){
     switch (form_name) {
         case "ime":
-            re = /^[a-zA-ZšŠđĐžŽćĆčČ]{2,}$/;
+            re = /^[a-zA-ZšŠđĐžŽćĆčČ]{2,}[\sa-zA-ZšŠđĐžŽćĆčČ]*$/;
             if(!re.test(form_value)) {
                 $("#ime").removeClass('is-valid').addClass("is-invalid");
             }
@@ -260,7 +260,7 @@ function preveriPolje(form_name, form_value){
             }
             break;
         case "priimek":
-            re = /^[a-zA-ZšŠđĐžŽćĆčČ]{2,}$/;
+            re = /^[a-zA-ZšŠđĐžŽćĆčČ]{2,}[\sa-zA-ZšŠđĐžŽćĆčČ]*$/;
             if(!re.test(form_value)) {
                 $("#priimek").removeClass('is-valid').addClass("is-invalid");
             }
