@@ -17,6 +17,24 @@ function createWindow () {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
+  mainWindow.on('close', function(e){
+    e.preventDefault();
+    var choice = require('electron').dialog.showMessageBox(this,
+        {
+          type: 'question',
+          buttons: ['Yes', 'No'],
+          title: 'Izhod',
+          message: 'Ste prepričani, da želite zapustiti aplikacijo?'
+        });
+    choice.then(function(res){
+      if(res.response === 0){
+        app.exit(0)
+      }
+      if(res.response === 1){
+
+      }
+    });
+  });
 }
 
 // This method will be called when Electron has finished
@@ -121,14 +139,25 @@ const template = [
     ]
   },
   {
-    role: 'Pomoč',
+    role: 'help',
+    label: 'Pomoč',
     submenu: [
       {
-        label: 'Learn More',
-        click: async () => {
-          const { shell } = require('electron')
-          await shell.openExternal('https://electronjs.org')
-        }
+        role: 'help',
+        label: 'Navodila za izpolnjevanje polj',
+        click() {
+          const { dialog } = require('electron')
+          const options = {
+            type: 'info',
+            buttons: ['OK'],
+            title: 'Navodila za izpolnjevanje polj',
+            message: 'Izposoja mora biti vsaj minuto po trenutnem času.\nVrnitev mora biti po času izposoje.\nStarost mora biti vsaj 18.\nČas izpita ne sme biti negativen.\nŠtevilko kreditne kartice zapišite kot xxxx-xxxx-xxxx-xxxx vključno z znakom -.',
+          };
+          dialog.showMessageBox(null, options, (response) => {
+            console.log(response);
+          });
+
+        },
       }
     ]
   }
@@ -136,3 +165,27 @@ const template = [
 
 const menu = Menu.buildFromTemplate(template)
 Menu.setApplicationMenu(menu)
+
+var newWindow = null
+
+function openAboutWindow() {
+  if (newWindow) {
+    newWindow.focus()
+    return
+  }
+
+  newWindow = new BrowserWindow({
+    height: 185,
+    resizable: false,
+    width: 270,
+    title: '',
+    minimizable: false,
+    fullscreenable: false
+  })
+
+  newWindow.loadURL('file://' + __dirname + '/help.html')
+
+  newWindow.on('closed', function() {
+    newWindow = null
+  })
+}
